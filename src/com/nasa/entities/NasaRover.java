@@ -5,17 +5,11 @@ package com.nasa.entities;
  */
 public class NasaRover extends Rover {
 
-//    private Position position;
-   // private OnBoardCamera camera;
+    public NasaRover(Position position){
+        super(position);
+    }
 
 
 }
-public class Plateau{
-
-    //0,0,N bottom north on grid
-}
-
-public abstract class RoverControl{
 
 
-}
