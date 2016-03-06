@@ -64,13 +64,13 @@ public class NasaRoverControlTest {
 
     @Test
     public void shouldMoveWestOneGridPoint() throws Exception {
-        Position position = new NasaRoverPosition(0, 0, CardinalPoint.W);
+        Position position = new NasaRoverPosition(1, 0, CardinalPoint.W);
         Rover rover = new NasaRover(position);
 
         RoverControl nasaRoverControl = new NasaRoverControl(rover, "M", plateau);
         nasaRoverControl.explore();
 
-        Assert.assertEquals(rover.getPosition().getPositionX(), -1);
+        Assert.assertEquals(rover.getPosition().getPositionX(), 0);
     }
 
     @Test
@@ -85,12 +85,12 @@ public class NasaRoverControlTest {
 
     @Test
     public void shouldMoveSouthOneGridPoint() throws Exception {
-        Position position = new NasaRoverPosition(0, 0, CardinalPoint.S);
+        Position position = new NasaRoverPosition(0, 1, CardinalPoint.S);
         Rover rover = new NasaRover(position);
 
         RoverControl nasaRoverControl = new NasaRoverControl(rover, "M", plateau);
         nasaRoverControl.explore();
-        Assert.assertEquals(rover.getPosition().getPositionY(), -1);
+        Assert.assertEquals(rover.getPosition().getPositionY(), 0);
     }
 
     @Test
@@ -132,6 +132,30 @@ public class NasaRoverControlTest {
         nasaRoverControl.explore();
 
         Assert.assertEquals(position.getCurrentPosition(), "5 1 E");
+
+    }
+
+    @Test
+    public void shouldNotAllowMoveInXDirection()
+    {
+        Position position = new NasaRoverPosition(5, 3, CardinalPoint.E);
+        Rover rover = new NasaRover(position);
+
+        RoverControl nasaRoverControl = new NasaRoverControl(rover, "L", plateau);
+
+        Assert.assertEquals(((NasaRoverControl)nasaRoverControl).canMoveInXDirection(),false);
+
+    }
+
+    @Test
+    public void shouldNotAllowMoveInYDirection()
+    {
+        Position position = new NasaRoverPosition(3, 5, CardinalPoint.E);
+        Rover rover = new NasaRover(position);
+
+        RoverControl nasaRoverControl = new NasaRoverControl(rover, "L", plateau);
+
+        Assert.assertEquals(((NasaRoverControl)nasaRoverControl).canMoveInYDirection(),false);
 
     }
 

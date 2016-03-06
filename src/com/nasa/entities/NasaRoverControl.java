@@ -36,16 +36,11 @@ public class NasaRoverControl implements RoverControl {
 
             if (instruction == Constants.LEFT) {
                 rotateLeft();
-            }
-            else if(instruction == Constants.RIGHT)
-            {
+            } else if (instruction == Constants.RIGHT) {
                 rotateRight();
-            }
-            else if (instruction == Constants.MOVE){
+            } else if (instruction == Constants.MOVE) {
                 move();
-            }
-            else
-            {
+            } else {
                 throw new Exception("Invalid instruction: " + String.valueOf(instruction) + ", expected L/R/M");
             }
 
@@ -58,7 +53,7 @@ public class NasaRoverControl implements RoverControl {
 
         //90 degress from current cardinality
         //i.e. so if facing north 90 degrees after rotate left then face west cardinality
-        NasaRoverPosition currentPosition = (NasaRoverPosition)this.nasaRover.getPosition();
+        NasaRoverPosition currentPosition = (NasaRoverPosition) this.nasaRover.getPosition();
 
         if (currentPosition.getCardinalPoint().equals(CardinalPoint.E)) {
             currentPosition.setCardinalPoint(CardinalPoint.N);
@@ -78,7 +73,7 @@ public class NasaRoverControl implements RoverControl {
         //90 degrees from current cardinality
         //i.e. so if facing north 90 degrees after rotate right then face east cardinality
 
-        NasaRoverPosition currentPosition = (NasaRoverPosition)this.nasaRover.getPosition();
+        NasaRoverPosition currentPosition = (NasaRoverPosition) this.nasaRover.getPosition();
 
         if (currentPosition.getCardinalPoint().equals(CardinalPoint.E)) {
             currentPosition.setCardinalPoint(CardinalPoint.S);
@@ -96,22 +91,42 @@ public class NasaRoverControl implements RoverControl {
     public void move() {
 
         //Current positin be it either X or Y will be incremented or decremented by 1 based on cardinality
-        NasaRoverPosition currentPosition = (NasaRoverPosition)this.nasaRover.getPosition();
+        NasaRoverPosition currentPosition = (NasaRoverPosition) this.nasaRover.getPosition();
 
-        if (currentPosition.getCardinalPoint().equals(CardinalPoint.E) ) {
-            int currentPositionX = currentPosition.getPositionX();
+        if (currentPosition.getCardinalPoint().equals(CardinalPoint.E)) {
             currentPosition.setPositionX(currentPosition.getPositionX() + 1);
-        } else if (currentPosition.getCardinalPoint().equals(CardinalPoint.W) ) {
-            int currentPositionX = currentPosition.getPositionX();
+        } else if (currentPosition.getCardinalPoint().equals(CardinalPoint.W)) {
             currentPosition.setPositionX(currentPosition.getPositionX() - 1);
-        } else if (currentPosition.getCardinalPoint().equals(CardinalPoint.N)) {
-            int currentPositionY = currentPosition.getPositionY();
+        } else if (currentPosition.getCardinalPoint().equals(CardinalPoint.N) ) {
             currentPosition.setPositionY(currentPosition.getPositionY() + 1);
         } else if (currentPosition.getCardinalPoint().equals(CardinalPoint.S)) {
-            int currentPositionY = currentPosition.getPositionY();
-
             currentPosition.setPositionY(currentPosition.getPositionY() - 1);
         }
+
+    }
+
+    public boolean canMoveInXDirection() {
+
+        int currentPosition = ((NasaRoverPosition) this.nasaRover.getPosition()).getPositionX();
+        boolean result = true;
+        if (currentPosition + 1 >= plateau.getMaxPosition().getPositionX()) {
+            result = false;
+        } else if (currentPosition - 1 <= plateau.getMinPosition().getPositionX()) {
+            result = false;
+        }
+        return result;
+    }
+
+    public boolean canMoveInYDirection() {
+        int currentPosition = ((NasaRoverPosition) this.nasaRover.getPosition()).getPositionY();
+        boolean result = true;
+        if (currentPosition + 1 >= plateau.getMaxPosition().getPositionY()) {
+            result = false;
+        } else if (currentPosition - 1 <= plateau.getMinPosition().getPositionY()) {
+            result = false;
+        }
+        return result;
+
 
     }
 }

@@ -6,6 +6,22 @@ package com.nasa.entities;
 public class Plateau {
 
 
+    public Position getMaxPosition() {
+        return maxPosition;
+    }
+
+    public void setMaxPosition(Position maxPosition) {
+        this.maxPosition = maxPosition;
+    }
+
+    public Position getMinPosition() {
+        return minPosition;
+    }
+
+    public void setMinPosition(Position minPosition) {
+        this.minPosition = minPosition;
+    }
+
     private Position maxPosition;
     private Position minPosition;
 
@@ -13,12 +29,5 @@ public class Plateau {
         this.minPosition = minPosition;
         this.maxPosition = maxPosition;
     }
-
-    public boolean canMove()
-    {
-return true;
-     //   if(maxPosition.getPositionX())
-    }
-
 
 }
